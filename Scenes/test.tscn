@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://c7s0rw71nvrtl"]
+
+[ext_resource type="PackedScene" uid="uid://cjq7qenull1yx" path="res://Scenes/player.tscn" id="1_lc1oi"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3qbn"]
+albedo_color = Color(0, 0.43529412, 0.5294118, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lc1oi"]
+material = SubResource("StandardMaterial3D_o3qbn")
+size = Vector2(100, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lc1oi"]
+size = Vector3(2, 50, 2)
+
+[node name="Test" type="Node3D" unique_id=1240381304]
+
+[node name="Player" parent="." unique_id=1617189981 instance=ExtResource("1_lc1oi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4919128, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1025575636]
+mesh = SubResource("PlaneMesh_lc1oi")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=685087647]
+transform = Transform3D(1, 0, 0, 0, 0.97347116, 0.22880964, 0, -0.22880964, 0.97347116, 13.581731, 3.0802479, -8.145716)
+mesh = SubResource("BoxMesh_lc1oi")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=889870867]
+transform = Transform3D(0.9624078, -0.27160844, 0, 0.27160844, 0.9624078, 0, 0, 0, 1, -18.502514, 3.0802479, 3.3004208)
+mesh = SubResource("BoxMesh_lc1oi")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=1487913365]
+transform = Transform3D(0.9723821, 0.23339446, 0, -0.23084526, 0.9617615, -0.14739512, -0.034401204, 0.14332438, 0.9890777, 13.581731, 3.0802479, 18.365934)
+mesh = SubResource("BoxMesh_lc1oi")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=718073162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 85.05267, 0)
+light_energy = 16.0
+light_indirect_energy = 1.245
+light_size = 1.0
+omni_range = 4096.0
+omni_shadow_mode = 0

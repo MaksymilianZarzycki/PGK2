@@ -1,0 +1,174 @@
+[gd_scene format=3 uid="uid://cjq7qenull1yx"]
+
+[ext_resource type="Script" uid="uid://c5qamot532h4v" path="res://Scripts/Player.cs" id="1_v0iea"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kltre"]
+shading_mode = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_syjhi"]
+material = SubResource("StandardMaterial3D_kltre")
+size = Vector2(2, 0.05)
+
+[sub_resource type="PackedScene" id="PackedScene_v0iea"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [],
+"names": PackedStringArray("Line", "MeshInstance3D", "transform", "mesh"),
+"node_count": 1,
+"node_ids": PackedInt32Array(1444121765),
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0),
+"variants": [Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0), SubResource("PlaneMesh_syjhi")],
+"version": 3
+}
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cvnsp"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_6t5aa"]
+size = Vector3(1, 1, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v0iea"]
+shading_mode = 0
+
+[sub_resource type="PrismMesh" id="PrismMesh_cvnsp"]
+material = SubResource("StandardMaterial3D_v0iea")
+size = Vector3(1, 0.1, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co088"]
+shading_mode = 0
+
+[sub_resource type="TorusMesh" id="TorusMesh_v0iea"]
+material = SubResource("StandardMaterial3D_co088")
+inner_radius = 4.98
+outer_radius = 5.0
+ring_segments = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cvnsp"]
+shading_mode = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_6t5aa"]
+material = SubResource("StandardMaterial3D_cvnsp")
+size = Vector2(2, 0.05)
+
+[node name="Player" type="CharacterBody3D" unique_id=1617189981 node_paths=PackedStringArray("plane", "cameraAxisY", "cameraAxisX", "camera", "cameraResetTimer", "hud", "pointer")]
+motion_mode = 1
+script = ExtResource("1_v0iea")
+plane = NodePath("Plane")
+cameraAxisY = NodePath("CameraAxisY")
+cameraAxisX = NodePath("CameraAxisY/CameraAxisX")
+camera = NodePath("CameraAxisY/CameraAxisX/Camera3D")
+cameraResetTimer = NodePath("CameraAxisY/CameraAxisX/Camera3D/CameraResetTimer")
+hud = NodePath("ArtificialHorizon")
+pointer = NodePath("Pointer")
+line = SubResource("PackedScene_v0iea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1972066341]
+shape = SubResource("SphereShape3D_cvnsp")
+
+[node name="Plane" type="Node3D" parent="." unique_id=1933983454]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane" unique_id=1192515118]
+transform = Transform3D(1, 0, 0, 0, 1.3113416e-07, 1, 0, -1, 1.3113416e-07, 0, 0, 0)
+mesh = SubResource("PrismMesh_6t5aa")
+
+[node name="CameraAxisY" type="Node3D" parent="." unique_id=1388215220]
+
+[node name="CameraAxisX" type="Node3D" parent="CameraAxisY" unique_id=969471694]
+
+[node name="Camera3D" type="Camera3D" parent="CameraAxisY/CameraAxisX" unique_id=1556007435]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5738077, 1.6832607)
+
+[node name="CameraResetTimer" type="Timer" parent="CameraAxisY/CameraAxisX/Camera3D" unique_id=1809061929]
+wait_time = 2.0
+one_shot = true
+
+[node name="Pointer" type="Node3D" parent="." unique_id=18356121]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pointer" unique_id=1800264560]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045910835, -4.899724)
+mesh = SubResource("PrismMesh_cvnsp")
+
+[node name="ArtificialHorizon" type="MeshInstance3D" parent="." unique_id=609114363]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574, 0)
+sorting_offset = 1.0
+cast_shadow = 0
+mesh = SubResource("TorusMesh_v0iea")
+
+[node name="Node3D" type="Node3D" parent="ArtificialHorizon" unique_id=1437350336]
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1597704577]
+transform = Transform3D(1, 0, 0, 0, -1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 5, 2.3841858e-07)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=101850858]
+transform = Transform3D(1, 0, 0, 0, -0.98480785, -0.1736482, 0, 0.1736482, -0.98480785, 0, 4.9240394, -0.8682412)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1370691480]
+transform = Transform3D(1, 0, 0, 0, -0.9396926, -0.34202012, 0, 0.34202012, -0.9396926, 0, 4.698463, -1.7101009)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=37394039]
+transform = Transform3D(1, 0, 0, 0, -0.86602545, -0.49999994, 0, 0.49999994, -0.86602545, 0, 4.3301272, -2.4999998)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=250954333]
+transform = Transform3D(1, 0, 0, 0, -0.76604444, -0.6427876, 0, 0.6427876, -0.76604444, 0, 3.830222, -3.2139382)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1474799313]
+transform = Transform3D(1, 0, 0, 0, -0.6427877, -0.76604456, 0, 0.76604456, -0.6427877, 0, 3.2139382, -3.8302228)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=608929587]
+transform = Transform3D(1, 0, 0, 0, -0.50000006, -0.8660254, 0, 0.8660254, -0.50000006, 0, 2.5, -4.330127)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D9" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=2039427187]
+transform = Transform3D(1, 0, 0, 0, -0.34202018, -0.93969274, 0, 0.93969274, -0.34202018, 0, 1.7101009, -4.6984634)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D10" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=736903649]
+transform = Transform3D(1, 0, 0, 0, -0.17364824, -0.98480785, 0, 0.98480785, -0.17364824, 0, 0.86824095, -4.9240394)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D11" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=843924759]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 2.3841858e-07)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D12" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1818426581]
+transform = Transform3D(1, 0, 0, 0, 0.98480785, -0.17364828, 0, 0.17364828, 0.98480785, 0, -4.9240394, -0.8682412)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D13" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=818407239]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, -0.34202018, 0, 0.34202018, 0.9396926, 0, -4.698463, -1.7101007)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D14" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1981841025]
+transform = Transform3D(1, 0, 0, 0, 0.86602545, -0.5, 0, 0.5, 0.86602545, 0, -4.3301272, -2.4999998)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D15" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=125754386]
+transform = Transform3D(1, 0, 0, 0, 0.76604444, -0.6427877, 0, 0.6427877, 0.76604444, 0, -3.8302221, -3.2139382)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D16" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1636618058]
+transform = Transform3D(1, 0, 0, 0, 0.6427876, -0.76604456, 0, 0.76604456, 0.6427876, 0, -3.2139382, -3.8302228)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D17" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=906546192]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, -0.8660254, 0, 0.8660254, 0.49999997, 0, -2.5, -4.330127)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D18" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=1492626550]
+transform = Transform3D(1, 0, 0, 0, 0.34202012, -0.93969274, 0, 0.93969274, 0.34202012, 0, -1.7101008, -4.6984634)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ArtificialHorizon/Node3D" unique_id=242875147]
+transform = Transform3D(1, 0, 0, 0, 0.17364815, -0.98480785, 0, 0.98480785, 0.17364815, 0, -0.86824095, -4.9240394)
+mesh = SubResource("PlaneMesh_6t5aa")
+
+[connection signal="timeout" from="CameraAxisY/CameraAxisX/Camera3D/CameraResetTimer" to="." method="_on_camera_reset_timer_timeout"]

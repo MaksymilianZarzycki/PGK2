@@ -24,7 +24,11 @@ public partial class Player : CharacterBody3D
 	public PackedScene line;
 	
 	public const float movementSpeed = 10f;
-	public const float rotationSpeed = 0.02f;
+	//public const float rotationSpeed = 0.02f;
+	public const float yawSpeed = 0.01f;
+	public const float pitchSpeed = 0.02f;
+	public const float rollSpeed = 0.05f;
+	public const float passiveRotation = 0.01f;
 	public float rollAngle = 0;
 	
 	public float pitchInputAxis;
@@ -35,7 +39,7 @@ public partial class Player : CharacterBody3D
 	public bool cameraManual = false;
 	
 	public override void _Ready(){
-		Input.MouseMode = Input.MouseModeEnum.Captured;
+		
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -46,13 +50,23 @@ public partial class Player : CharacterBody3D
 		rollInputAxis = Input.GetAxis("RollLeft", "RollRight");
 		yawInputAxis = Input.GetAxis("YawRight", "YawLeft");
 		
-		plane.RotateObjectLocal(Vector3.Up, yawInputAxis*rotationSpeed);
-		plane.RotateObjectLocal(Vector3.Forward, rollInputAxis*rotationSpeed);
-		plane.RotateObjectLocal(Vector3.Right, pitchInputAxis*rotationSpeed);
+		plane.RotateObjectLocal(Vector3.Up, yawInputAxis*yawSpeed);
+		plane.RotateObjectLocal(Vector3.Forward, rollInputAxis*rollSpeed);
+		plane.RotateObjectLocal(Vector3.Right, pitchInputAxis*pitchSpeed);
+		
+		//plane.RotateObjectLocal(Vector3.Right, passiveRotation);
+		float rotAngle = plane.Rotation.Z;
+		float downRot = -passiveRotation*Mathf.Cos(rotAngle);
+		plane.RotateObjectLocal(Vector3.Right, passiveRotation);
+		plane.Rotate(Vector3.Right.Rotated(Vector3.Up,plane.Rotation.Y), downRot);
+		
 		
 		Vector3 direction = Vector3.Forward.Rotated(Vector3.Right,plane.GlobalRotation.X);
 		direction = direction.Rotated(Vector3.Up,plane.GlobalRotation.Y);
 		velocity = velocity.MoveToward(direction * movementSpeed, 0.15f);
+		if(velocity.Length()<4){
+			velocity = velocity.MoveToward(Vector3.Down * movementSpeed, 2f);
+		}
 		
 		if(!cameraManual){
 			cameraAxisY.Rotation = new Vector3(0,plane.Rotation.Y,0);

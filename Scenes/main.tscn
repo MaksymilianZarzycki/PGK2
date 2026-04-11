@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0b6rabtdwop6"]
 
 [ext_resource type="Script" uid="uid://cql0epe62u7si" path="res://Scripts/Main.cs" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://c7s0rw71nvrtl" path="res://Scenes/test.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://75iotbygemkh" path="res://Scenes/game.tscn" id="2_bo1nx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bo1nx"]
 font_size = 40
@@ -40,4 +40,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Start"
 
+[node name="ExitButton" type="Button" parent="VBoxContainer" unique_id=1140178810]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Exit"
+
 [connection signal="button_up" from="VBoxContainer/StartButton" to="." method="_on_start_button_up"]
+[connection signal="button_up" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_up"]

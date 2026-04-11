@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://75iotbygemkh"]
+
+[ext_resource type="Script" uid="uid://bbmd2yn2bgs7e" path="res://Scripts/Game.cs" id="1_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://c7s0rw71nvrtl" path="res://Scenes/test.tscn" id="2_wrm1d"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ebmjs"]
+font_size = 40
+
+[node name="Game" type="Node" unique_id=637445144 node_paths=PackedStringArray("enviroment", "pauseMenu", "gameOverMenu")]
+process_mode = 3
+script = ExtResource("1_qxrlw")
+enviroment = NodePath("Map")
+pauseMenu = NodePath("PauseMenu")
+gameOverMenu = NodePath("GameOverMenu")
+
+[node name="Map" type="Node" parent="." unique_id=1388711613]
+process_mode = 1
+
+[node name="Test" parent="Map" unique_id=1240381304 instance=ExtResource("2_wrm1d")]
+
+[node name="PauseMenu" type="CanvasLayer" parent="." unique_id=1053608968]
+process_mode = 3
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=1492399806]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -71.0
+offset_right = 106.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.48235294)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=1245411134]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -62.5
+offset_right = 70.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer" unique_id=823988667]
+layout_mode = 2
+text = "Paused"
+label_settings = SubResource("LabelSettings_ebmjs")
+
+[node name="Resume" type="Button" parent="PauseMenu/VBoxContainer" unique_id=224554426]
+layout_mode = 2
+text = "Resume"
+
+[node name="Exit" type="Button" parent="PauseMenu/VBoxContainer" unique_id=151209598]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="GameOverMenu" type="CanvasLayer" parent="." unique_id=330129047]
+process_mode = 3
+visible = false
+
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_button_up"]
+[connection signal="button_up" from="PauseMenu/VBoxContainer/Exit" to="." method="_on_exit_button_up"]

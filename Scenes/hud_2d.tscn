@@ -4,9 +4,12 @@
 
 [node name="Hud2D" type="CanvasLayer" unique_id=128234520 node_paths=PackedStringArray("velocityLabel")]
 script = ExtResource("1_7k1l6")
-velocityLabel = NodePath("Label")
+velocityLabel = NodePath("VBoxContainer/Label")
 
-[node name="Label" type="Label" parent="." unique_id=1040000008]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=835183697]
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1040000008]
+layout_mode = 2
 text = "Velocity"

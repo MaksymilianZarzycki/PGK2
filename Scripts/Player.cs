@@ -17,7 +17,9 @@ public partial class Player : CharacterBody3D
 	public Timer cameraResetTimer;
 	[ExportGroup("Hud")]
 	[Export]
-	public Node3D hud;
+	public Node3D hud3D;
+	[Export]
+	public Node3D horizon;
 	[Export]
 	public Node3D pointer;
 	[Export]
@@ -69,13 +71,14 @@ public partial class Player : CharacterBody3D
 		}
 		
 		if(!cameraManual){
-			cameraAxisY.Rotation = new Vector3(0,plane.Rotation.Y,0);
-			cameraAxisX.Rotation = new Vector3(plane.Rotation.X,0,0);
+			
+			cameraAxisY.Rotation = new Vector3(0,Mathf.LerpAngle(cameraAxisY.Rotation.Y,plane.Rotation.Y,0.2f),0);
+			cameraAxisX.Rotation = new Vector3(Mathf.LerpAngle(cameraAxisY.Rotation.X,plane.Rotation.X,0.6f),0,0);
 		}
 		
 		pointer.Rotation = plane.Rotation;
-		hud.GlobalPosition = new Vector3(hud.GlobalPosition.X,camera.GlobalPosition.Y,hud.GlobalPosition.Z);
-		hud.Rotation = new Vector3(0,plane.Rotation.Y,0);
+		hud3D.GlobalPosition = new Vector3(hud3D.GlobalPosition.X,camera.GlobalPosition.Y,hud3D.GlobalPosition.Z);
+		horizon.Rotation = new Vector3(0,plane.Rotation.Y,0);
 		
 		Velocity = velocity;
 		MoveAndSlide();

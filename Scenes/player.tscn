@@ -2,33 +2,15 @@
 
 [ext_resource type="Script" uid="uid://c5qamot532h4v" path="res://Scripts/Player.cs" id="1_v0iea"]
 [ext_resource type="PackedScene" uid="uid://dqyv12gd5mf7p" path="res://Scenes/hud_2d.tscn" id="2_cvnsp"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kltre"]
-shading_mode = 0
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_syjhi"]
-material = SubResource("StandardMaterial3D_kltre")
-size = Vector2(2, 0.05)
-
-[sub_resource type="PackedScene" id="PackedScene_v0iea"]
-_bundled = {
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"id_paths": [],
-"names": PackedStringArray("Line", "MeshInstance3D", "transform", "mesh"),
-"node_count": 1,
-"node_ids": PackedInt32Array(1444121765),
-"node_paths": [],
-"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 2, 2, 0, 3, 1, 0),
-"variants": [Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0), SubResource("PlaneMesh_syjhi")],
-"version": 3
-}
+[ext_resource type="PackedScene" uid="uid://bt33ldxo1gjbo" path="res://Scenes/machinegun.tscn" id="2_vgqql"]
+[ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="3_6t5aa"]
+[ext_resource type="ArrayMesh" uid="uid://bpbsgfx0otoh4" path="res://Models/fighter.obj" id="3_fkybt"]
+[ext_resource type="PackedScene" uid="uid://85mmajo1bh4x" path="res://Models/Scenes/green_fighter.tscn" id="3_x3wgy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cvnsp"]
+radius = 0.4
 
-[sub_resource type="PrismMesh" id="PrismMesh_6t5aa"]
-size = Vector3(1, 1, 0.2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkybt"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co088"]
 shading_mode = 0
@@ -53,10 +35,14 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_v0iea")
 size = Vector3(1, 0.1, 0.1)
 
-[node name="Player" type="CharacterBody3D" unique_id=1617189981 node_paths=PackedStringArray("plane", "cameraAxisY", "cameraAxisX", "camera", "cameraResetTimer", "hud3D", "horizon", "pointer")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_vgqql"]
+radius = 0.5877877
+
+[node name="Player" type="CharacterBody3D" unique_id=1617189981 node_paths=PackedStringArray("plane", "gun", "cameraAxisY", "cameraAxisX", "camera", "cameraResetTimer", "hud3D", "horizon", "pointer")]
 motion_mode = 1
 script = ExtResource("1_v0iea")
 plane = NodePath("Plane")
+gun = NodePath("Plane/Machinegun")
 cameraAxisY = NodePath("CameraAxisY")
 cameraAxisX = NodePath("CameraAxisY/CameraAxisX")
 camera = NodePath("CameraAxisY/CameraAxisX/Camera3D")
@@ -64,16 +50,23 @@ cameraResetTimer = NodePath("CameraAxisY/CameraAxisX/Camera3D/CameraResetTimer")
 hud3D = NodePath("Hud3D")
 horizon = NodePath("Hud3D/ArtificialHorizon")
 pointer = NodePath("Hud3D/Pointer")
-line = SubResource("PackedScene_v0iea")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1972066341]
 shape = SubResource("SphereShape3D_cvnsp")
 
 [node name="Plane" type="Node3D" parent="." unique_id=1933983454]
 
+[node name="Machinegun" parent="Plane" unique_id=496539689 node_paths=PackedStringArray("parent") instance=ExtResource("2_vgqql")]
+parent = NodePath("../..")
+targetLayer = 3
+
+[node name="GreenFighter" parent="Plane" unique_id=1563268828 instance=ExtResource("3_x3wgy")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plane" unique_id=1192515118]
-transform = Transform3D(1, 0, 0, 0, 1.3113416e-07, 1, 0, -1, 1.3113416e-07, 0, 0, 0)
-mesh = SubResource("PrismMesh_6t5aa")
+transform = Transform3D(-0.2, 0, 1.7484556e-08, 0, 0.2, 0, -1.7484556e-08, 0, -0.2, 0, 0, 0)
+visible = false
+mesh = ExtResource("3_fkybt")
+surface_material_override/0 = SubResource("StandardMaterial3D_fkybt")
 
 [node name="CameraAxisY" type="Node3D" parent="." unique_id=1388215220]
 
@@ -187,4 +180,20 @@ mesh = SubResource("TorusMesh_v0iea")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.045910835, -4.994728)
 mesh = SubResource("PrismMesh_cvnsp")
 
+[node name="HurtBox" type="Area3D" parent="." unique_id=275525673]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_6t5aa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtBox" unique_id=1077009869]
+shape = SubResource("SphereShape3D_vgqql")
+debug_color = Color(0, 0.6457629, 0.23300683, 0.41960785)
+
+[node name="InvincibilityTimer" type="Timer" parent="." unique_id=1718562895]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="CameraAxisY/CameraAxisX/Camera3D/CameraResetTimer" to="." method="_on_camera_reset_timer_timeout"]
+[connection signal="Hit" from="HurtBox" to="." method="on_hurt_box_hit"]
+[connection signal="timeout" from="InvincibilityTimer" to="." method="_on_invincibility_timeout"]

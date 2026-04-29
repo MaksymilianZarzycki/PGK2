@@ -1,15 +1,13 @@
 using Godot;
 using System;
 
-public partial class Main : Control
+public partial class HurtBox : Area3D
 {
-	[Export]
-	public PackedScene startScene;
-	
+	[Signal]
+	public delegate void HitEventHandler(int damage);
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GetTree().Paused = false;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,13 +15,8 @@ public partial class Main : Control
 	{
 	}
 	
-	public void _on_start_button_up()
-	{
-		SceneManager.Instance.ChangeScene(startScene);
-	}
-	
-	public void _on_exit_button_up()
-	{
-		GetTree().Quit();
+	public void TakeDamage(int damage){
+		GD.Print("Hit: " + damage);
+		EmitSignal(SignalName.Hit, damage);
 	}
 }

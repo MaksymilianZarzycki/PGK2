@@ -1,6 +1,9 @@
 [gd_scene format=3 uid="uid://c7s0rw71nvrtl"]
 
 [ext_resource type="PackedScene" uid="uid://cjq7qenull1yx" path="res://Scenes/player.tscn" id="1_lc1oi"]
+[ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="2_qc4db"]
+[ext_resource type="Script" uid="uid://gxc0qainvj3n" path="res://Scripts/HitBox.cs" id="3_ys1qc"]
+[ext_resource type="PackedScene" uid="uid://costxub66xa6e" path="res://Scenes/enemy.tscn" id="5_35xla"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc1oi"]
 size = Vector3(100.36621, 0.38934326, 100.80737)
@@ -18,12 +21,19 @@ size = Vector3(2, 50, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8od7v"]
 size = Vector3(2, 50, 2)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_35xla"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3aeo"]
+radius = 2.0
+
 [node name="Test" type="Node3D" unique_id=1240381304]
 
-[node name="Player" parent="." unique_id=1617189981 instance=ExtResource("1_lc1oi")]
+[node name="Player" parent="." unique_id=1617189981 node_paths=PackedStringArray("mapRoot") instance=ExtResource("1_lc1oi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.563301, 0)
+mapRoot = NodePath("..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1607334061]
+collision_layer = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=115038791]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.068603516, -0.30532837, 0.22644043)
@@ -34,6 +44,7 @@ mesh = SubResource("PlaneMesh_lc1oi")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=167096488]
 transform = Transform3D(1, 0, 0, 0, 0.97347116, 0.22880964, 0, -0.22880964, 0.97347116, 13.581731, 3.0802479, -8.145716)
+collision_layer = 7
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D2" unique_id=685087647]
 transform = Transform3D(1, 0, 0, 0, 1, -1.4901161e-08, 0, 1.4901161e-08, 1, 0, 0, 0)
@@ -44,6 +55,7 @@ shape = SubResource("BoxShape3D_8od7v")
 
 [node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=51204441]
 transform = Transform3D(0.9624078, -0.27160844, 0, 0.27160847, 0.9624079, -1.4901161e-08, 0, 0, 1, -18.502514, 3.0802476, 3.3004217)
+collision_layer = 7
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D3" unique_id=889870867]
 transform = Transform3D(1, -2.9802322e-08, 4.047281e-09, -2.9802322e-08, 1, 1.4340994e-08, 0, 0, 1, 1.9073486e-06, 4.7683716e-07, -9.536743e-07)
@@ -54,6 +66,7 @@ shape = SubResource("BoxShape3D_8od7v")
 
 [node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=1002257503]
 transform = Transform3D(0.9723821, 0.23339446, 0, -0.23084526, 0.9617615, -0.14739512, -0.034401204, 0.14332438, 0.9890777, 13.581731, 3.0802479, 18.365934)
+collision_layer = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=1735164826]
 transform = Transform3D(1, -5.122274e-09, 0, -5.122274e-09, 1, 0, -3.7252903e-09, 1.4901161e-08, 0.99999994, 0, 0, 0)
@@ -71,3 +84,28 @@ light_size = 1.0
 shadow_enabled = true
 omni_range = 4096.0
 omni_shadow_mode = 0
+
+[node name="Hurt" type="Area3D" parent="." unique_id=976115329]
+visible = false
+script = ExtResource("2_qc4db")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurt" unique_id=601045556]
+shape = SubResource("SphereShape3D_35xla")
+
+[node name="Hit" type="Area3D" parent="." unique_id=423159724]
+process_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.20242, 27.426807, 3.1508512)
+visible = false
+script = ExtResource("3_ys1qc")
+damage = 100
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hit" unique_id=728835505]
+shape = SubResource("SphereShape3D_i3aeo")
+
+[node name="Enemy" parent="." unique_id=2122765264 node_paths=PackedStringArray("target") instance=ExtResource("5_35xla")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7, -36.395283)
+target = NodePath("../Player")
+
+[node name="Enemy2" parent="." unique_id=1541072327 node_paths=PackedStringArray("target") instance=ExtResource("5_35xla")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.749096, 7, -6.1444397)
+target = NodePath("../Player")

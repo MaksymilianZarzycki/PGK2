@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://clx2fkn7g3p3e"]
+
+[ext_resource type="PackedScene" uid="uid://b8yaxa261vubj" path="res://Models/fighter.gltf" id="1_4whr0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jk8db"]
+albedo_color = Color(0.80018437, 0, 0.17120236, 1)
+
+[node name="RedFighter" unique_id=1563268828 instance=ExtResource("1_4whr0")]
+
+[node name="Cube_001" parent="." index="0" unique_id=826967280]
+transform = Transform3D(-0.2, 0, -1.7484556e-08, 0, 0.2, 0, 1.7484556e-08, 0, -0.2, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_jk8db")

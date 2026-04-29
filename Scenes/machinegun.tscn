@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bt33ldxo1gjbo"]
+
+[ext_resource type="Script" uid="uid://bbhg64qktkv5j" path="res://Scripts/Machinegun.cs" id="1_7ndbo"]
+[ext_resource type="PackedScene" uid="uid://c3b7qqj1m8vxo" path="res://Scenes/bullet.tscn" id="2_be25l"]
+
+[node name="Machinegun" type="Node3D" unique_id=496539689 node_paths=PackedStringArray("cooldown")]
+script = ExtResource("1_7ndbo")
+bullet = ExtResource("2_be25l")
+cooldown = NodePath("CooldownTimer")
+
+[node name="CooldownTimer" type="Timer" parent="." unique_id=881484277]
+wait_time = 0.05
+one_shot = true
+
+[connection signal="timeout" from="CooldownTimer" to="." method="on_cooldown_timer_timeout"]

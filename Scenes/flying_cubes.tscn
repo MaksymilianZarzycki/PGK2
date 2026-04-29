@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bte6w5e0xi4a4"]
+
+[ext_resource type="Script" uid="uid://d4d0me8wue0ed" path="res://Scripts/FlyingCubes.cs" id="1_6a2wv"]
+[ext_resource type="PackedScene" uid="uid://cqk62reuwiu64" path="res://Scenes/cube.tscn" id="2_1c0yv"]
+[ext_resource type="PackedScene" uid="uid://cjq7qenull1yx" path="res://Scenes/player.tscn" id="2_ytg6h"]
+[ext_resource type="PackedScene" uid="uid://costxub66xa6e" path="res://Scenes/enemy.tscn" id="3_1c0yv"]
+
+[node name="FlyingCubes" type="Node3D" unique_id=2039199644]
+script = ExtResource("1_6a2wv")
+cube = ExtResource("2_1c0yv")
+enemy = ExtResource("3_1c0yv")
+
+[node name="Player" parent="." unique_id=1617189981 node_paths=PackedStringArray("mapRoot") instance=ExtResource("2_ytg6h")]
+mapRoot = NodePath("..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1910460167]
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+light_color = Color(0.94773597, 0.9915101, 0.7392816, 1)
+light_energy = 1.5
+light_indirect_energy = 1.5
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=50126724]
+transform = Transform3D(-0.70710677, -0.49999997, -0.49999997, 0, 0.70710677, -0.70710677, 0.70710677, -0.49999997, -0.49999997, 0, 0, 0)
+visible = false
+light_color = Color(0.74410063, 0.344708, 1, 1)
+light_energy = 0.5
+light_indirect_energy = 0.5

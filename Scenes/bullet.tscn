@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://c3b7qqj1m8vxo"]
+
+[ext_resource type="Script" uid="uid://cl635iwqm561g" path="res://Scripts/Bullet.cs" id="1_xjght"]
+[ext_resource type="PackedScene" uid="uid://yvkmrvp7v8y1" path="res://Scenes/hit_spark.tscn" id="2_oduel"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4mw4s"]
+radius = 0.059348408
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xjght"]
+shading_mode = 0
+albedo_color = Color(0.8041395, 0.87003416, 7.70092e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_oduel"]
+material = SubResource("StandardMaterial3D_xjght")
+radius = 0.05
+height = 0.1
+radial_segments = 4
+rings = 4
+
+[node name="Bullet" type="Area3D" unique_id=179666676]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_xjght")
+speed = 50
+spark = ExtResource("2_oduel")
+damage = 10
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1021535724]
+shape = SubResource("SphereShape3D_4mw4s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1676459872]
+mesh = SubResource("SphereMesh_oduel")
+
+[node name="RemoveTimer" type="Timer" parent="." unique_id=171630582]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1148540360]
+target_position = Vector3(0, 0, 0.5)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_entered" from="." to="." method="on_area_collision"]
+[connection signal="body_entered" from="." to="." method="on_body_collision"]
+[connection signal="timeout" from="RemoveTimer" to="." method="on_remove_timer_timeout"]

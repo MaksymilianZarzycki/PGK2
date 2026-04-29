@@ -8,18 +8,26 @@ public partial class SceneManager : Node
 	[Signal] public delegate void SceneChangeEventHandler();
 	
 	public Node currentScene;
+	public PackedScene currentScenePacked;
 	
 	public override void _Ready()
 	{
 		Instance = this;
 		currentScene = GetTree().GetRoot().GetChild(GetTree().GetRoot().GetChildCount()-1);
+		ProcessMode = Node.ProcessModeEnum.Always;
 	}
 	
 	public void ChangeScene(PackedScene scene)
 	{
+		currentScenePacked = scene;
 		EmitSignal("SceneChange");
 		currentScene.QueueFree();
 		currentScene = scene.Instantiate();
 		GetTree().GetRoot().AddChild(currentScene);
+	}
+	
+	public void ReloadScene()
+	{
+		ChangeScene(currentScenePacked);
 	}
 }

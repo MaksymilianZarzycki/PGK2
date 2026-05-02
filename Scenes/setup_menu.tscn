@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://b2gij7qnl2gcx"]
+
+[ext_resource type="Script" uid="uid://uinog78xceok" path="res://Scripts/SetupMenu.cs" id="1_6pgd0"]
+
+[node name="SetupMenu" type="Control" unique_id=665497116 node_paths=PackedStringArray("playerHealth", "enemyAmount", "enemyHealth", "enemyRespawn", "obstacleAmount", "spawnArea")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6pgd0")
+playerHealth = NodePath("VBoxContainer/GridContainer/LineEdit5")
+enemyAmount = NodePath("VBoxContainer/GridContainer/LineEdit")
+enemyHealth = NodePath("VBoxContainer/GridContainer/LineEdit2")
+enemyRespawn = NodePath("VBoxContainer/GridContainer/CheckButton")
+obstacleAmount = NodePath("VBoxContainer/GridContainer/LineEdit3")
+spawnArea = NodePath("VBoxContainer/GridContainer/LineEdit4")
+startScenePath = "res://Scenes/game.tscn"
+mainScenePath = "res://Scenes/main.tscn"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=294929853]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.5
+offset_top = -82.0
+offset_right = 103.5
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer" unique_id=624953744]
+layout_mode = 2
+columns = 2
+
+[node name="Label6" type="Label" parent="VBoxContainer/GridContainer" unique_id=1260701055]
+layout_mode = 2
+text = "Player Health"
+
+[node name="LineEdit5" type="LineEdit" parent="VBoxContainer/GridContainer" unique_id=46341889]
+layout_mode = 2
+text = "100"
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/GridContainer" unique_id=707600716]
+layout_mode = 2
+text = "Enemy Amount"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/GridContainer" unique_id=1168381850]
+layout_mode = 2
+text = "1"
+alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/GridContainer" unique_id=1378559101]
+layout_mode = 2
+text = "Enemy Health"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer/GridContainer" unique_id=990887638]
+layout_mode = 2
+text = "100"
+alignment = 1
+
+[node name="Label3" type="Label" parent="VBoxContainer/GridContainer" unique_id=21803509]
+layout_mode = 2
+text = "Enemy Respawn"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/GridContainer" unique_id=1993448136]
+layout_mode = 2
+size_flags_horizontal = 4
+button_pressed = true
+
+[node name="Label4" type="Label" parent="VBoxContainer/GridContainer" unique_id=1059372869]
+layout_mode = 2
+text = "Obstacle Amount"
+
+[node name="LineEdit3" type="LineEdit" parent="VBoxContainer/GridContainer" unique_id=1493089957]
+layout_mode = 2
+text = "100"
+alignment = 1
+
+[node name="Label5" type="Label" parent="VBoxContainer/GridContainer" unique_id=328452043]
+layout_mode = 2
+text = "Spawn Area"
+
+[node name="LineEdit4" type="LineEdit" parent="VBoxContainer/GridContainer" unique_id=2096106635]
+layout_mode = 2
+text = "100"
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=2083977880]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1528282463]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Back"
+
+[connection signal="button_up" from="VBoxContainer/Button" to="." method="on_start_button_up"]
+[connection signal="button_up" from="VBoxContainer/Button2" to="." method="on_back_button_up"]

@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bcskchx5oqtc8"]
+
+[ext_resource type="PackedScene" uid="uid://dtyjkby1cyw05" path="res://Models/f-16.gltf" id="1_5j0px"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5evn"]
+albedo_color = Color(0, 0.43351528, 0.31434938, 1)
+
+[node name="f-16" unique_id=2026954534 instance=ExtResource("1_5j0px")]
+
+[node name="f-16_meged" parent="." index="0" unique_id=261915955]
+surface_material_override/0 = SubResource("StandardMaterial3D_n5evn")

@@ -2,28 +2,49 @@
 
 [ext_resource type="PackedScene" uid="uid://bt33ldxo1gjbo" path="res://Scenes/machinegun.tscn" id="1_1f0kj"]
 [ext_resource type="Script" uid="uid://dym68yy8jh1sr" path="res://Scripts/Enemy.cs" id="1_afpow"]
+[ext_resource type="PackedScene" uid="uid://cffhorxd2twyq" path="res://Scenes/VisualEffects/exposion.tscn" id="2_1dp5w"]
 [ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="2_afpow"]
-[ext_resource type="ArrayMesh" uid="uid://bpbsgfx0otoh4" path="res://Models/fighter.obj" id="3_287tu"]
-[ext_resource type="PackedScene" uid="uid://clx2fkn7g3p3e" path="res://Models/Scenes/red_fighter.tscn" id="4_0830c"]
+[ext_resource type="PackedScene" uid="uid://bj6fesquksq0x" path="res://Models/Scenes/f_16_red.tscn" id="5_1dp5w"]
+[ext_resource type="PackedScene" uid="uid://df25n3172rky8" path="res://Scenes/VisualEffects/engine_trail.tscn" id="5_ghaa6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_287tu"]
 radius = 0.4
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_afpow"]
-radius = 3.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0830c"]
+radius = 5.0
 height = 50.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0830c"]
-albedo_color = Color(0.8497394, 0, 0.10403723, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghaa6"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.49166125, 0.6023163, 0.4509804)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1dp5w"]
+material = SubResource("StandardMaterial3D_ghaa6")
+radius = 0.1
+height = 0.2
+radial_segments = 6
+rings = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ek2"]
+shading_mode = 0
+stencil_flags = 2
+
+[sub_resource type="SphereMesh" id="SphereMesh_auwsv"]
+material = SubResource("StandardMaterial3D_f1ek2")
+radius = 0.05
+height = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_1dp5w"]
 radius = 0.5877877
 
-[node name="Enemy" type="CharacterBody3D" unique_id=2122765264 node_paths=PackedStringArray("plane", "machinegun")]
+[node name="Enemy" type="CharacterBody3D" unique_id=2122765264 node_paths=PackedStringArray("plane", "planeDir", "machinegun")]
 motion_mode = 1
 script = ExtResource("1_afpow")
 plane = NodePath("Plane")
+planeDir = NodePath("Plane/planeDir")
 machinegun = NodePath("Plane/Machinegun")
+exposlion = ExtResource("2_1dp5w")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1269220554]
 shape = SubResource("SphereShape3D_287tu")
@@ -31,7 +52,7 @@ shape = SubResource("SphereShape3D_287tu")
 [node name="Plane" type="Node3D" parent="." unique_id=2120088550]
 
 [node name="Machinegun" parent="Plane" unique_id=496539689 node_paths=PackedStringArray("parent") instance=ExtResource("1_1f0kj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.47567087)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.042054318, -0.67)
 parent = NodePath("../..")
 targetLayer = 2
 
@@ -40,16 +61,28 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Machinegun/AttackTrigger" unique_id=85170329]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -25.263678)
-shape = SubResource("CapsuleShape3D_afpow")
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -25.27085)
+shape = SubResource("CapsuleShape3D_0830c")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane" unique_id=1062161652]
-transform = Transform3D(-0.2, 0, -1.7484556e-08, 0, 0.2, 0, 1.7484556e-08, 0, -0.2, 0, 0, 0)
-visible = false
-mesh = ExtResource("3_287tu")
-surface_material_override/0 = SubResource("StandardMaterial3D_0830c")
+[node name="f-16" parent="Plane" unique_id=1785029857 instance=ExtResource("5_1dp5w")]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
 
-[node name="RedFighter" parent="Plane" unique_id=1563268828 instance=ExtResource("4_0830c")]
+[node name="planeDir" type="Node3D" parent="Plane" unique_id=185006570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Thruster" type="MeshInstance3D" parent="Plane" unique_id=1049505878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0048768222, 0.69226897)
+mesh = SubResource("SphereMesh_1dp5w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane/Thruster" unique_id=690929186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03806132)
+mesh = SubResource("SphereMesh_auwsv")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane/Thruster/MeshInstance3D" unique_id=88687355]
+light_color = Color(0.97749585, 0.55542314, 0.6032885, 1)
+omni_range = 10.0
+
+[node name="EngineTrail" parent="Plane/Thruster" unique_id=584689677 instance=ExtResource("5_ghaa6")]
 
 [node name="HurtBox" type="Area3D" parent="." unique_id=1138120423]
 collision_layer = 4

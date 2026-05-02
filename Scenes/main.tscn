@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0b6rabtdwop6"]
 
 [ext_resource type="Script" uid="uid://cql0epe62u7si" path="res://Scripts/Main.cs" id="1_jjgbg"]
-[ext_resource type="PackedScene" uid="uid://75iotbygemkh" path="res://Scenes/game.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://b2gij7qnl2gcx" path="res://Scenes/setup_menu.tscn" id="2_bo1nx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bo1nx"]
 font_size = 40

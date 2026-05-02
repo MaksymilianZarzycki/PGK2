@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cffhorxd2twyq"]
+
+[ext_resource type="Script" uid="uid://cxfblgtym67gl" path="res://Scripts/HitSpark.cs" id="1_qmenk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_adcqq"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.8745098)
+
+[sub_resource type="SphereMesh" id="SphereMesh_wwk7o"]
+material = SubResource("StandardMaterial3D_adcqq")
+radius = 1.0
+height = 2.0
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Curve" id="Curve_qmenk"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.6481481, -0.8767352), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_01ia5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.18148148, 1), 0.0, 0.0, 0, 0, Vector2(0.6814815, 0.42254305), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="Exposion" type="Node3D" unique_id=2043340409]
+script = ExtResource("1_qmenk")
+
+[node name="MeshInstance3D" type="CPUParticles3D" parent="." unique_id=645693454]
+amount = 16
+explosiveness = 0.8
+mesh = SubResource("SphereMesh_wwk7o")
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 10.0
+linear_accel_min = -2.0
+linear_accel_max = -2.0
+radial_accel_max = 10.0
+radial_accel_curve = SubResource("Curve_qmenk")
+scale_amount_curve = SubResource("Curve_01ia5")
+
+[node name="Timer" type="Timer" parent="." unique_id=274599747]
+one_shot = true
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1736246464]
+light_color = Color(0.82223785, 0.99999994, 0.37496623, 1)
+light_energy = 0.5
+light_size = 1.0
+
+[connection signal="timeout" from="Timer" to="." method="on_timer_timeout"]

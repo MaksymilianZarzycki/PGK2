@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://df25n3172rky8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flgm8"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_ms00y"]
+material = SubResource("StandardMaterial3D_flgm8")
+radius = 0.1
+height = 0.2
+radial_segments = 6
+rings = 3
+
+[sub_resource type="Curve" id="Curve_r0gmd"]
+_data = [Vector2(0, 0.37923378), 0.0, 0.0, 0, 0, Vector2(0.048148148, 0.6968351), 0.0, 0.0, 0, 0, Vector2(0.8185185, 0.9566907), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[node name="EngineTrail" type="CPUParticles3D" unique_id=584689677]
+lifetime = 0.5
+mesh = SubResource("SphereMesh_ms00y")
+emission_shape = 1
+emission_sphere_radius = 0.05
+direction = Vector3(0, 0, 1)
+spread = 90.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+radial_accel_min = 1.0
+radial_accel_max = 1.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_r0gmd")

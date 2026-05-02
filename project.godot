@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Globals="*uid://cx2fh7oo2yic1"
 SceneManager="*uid://ilrecdj2bhjv"
 
 [display]
@@ -88,4 +89,4 @@ ManualCamera={
 [rendering]
 
 rendering_device/driver.windows="d3d12"
-environment/defaults/default_clear_color=Color(0.48304003, 0.5150875, 0.82218975, 1)
+environment/defaults/default_clear_color=Color(0.35842514, 0.5177003, 0.85924596, 1)

@@ -14,14 +14,14 @@ enemy = ExtResource("3_1c0yv")
 mapRoot = NodePath("..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1910460167]
-transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
-light_color = Color(0.94773597, 0.9915101, 0.7392816, 1)
+transform = Transform3D(0.8660253, -0.35355335, 0.35355335, 0, 0.7071067, 0.7071067, -0.49999997, -0.61237234, 0.61237234, 0, 0, 0)
+light_color = Color(0.8194195, 0.89765716, 0.47710085, 1)
 light_energy = 1.5
 light_indirect_energy = 1.5
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="." unique_id=50126724]
-transform = Transform3D(-0.70710677, -0.49999997, -0.49999997, 0, 0.70710677, -0.70710677, 0.70710677, -0.49999997, -0.49999997, 0, 0, 0)
+transform = Transform3D(-0.7071067, -0.7071067, 3.0908616e-08, 0, -4.3711385e-08, -0.99999994, 0.7071067, -0.7071067, 3.0908616e-08, 0, 0, 0)
 visible = false
-light_color = Color(0.74410063, 0.344708, 1, 1)
+light_color = Color(0.3471867, 0.0008374269, 0.5083999, 1)
 light_energy = 0.5
 light_indirect_energy = 0.5

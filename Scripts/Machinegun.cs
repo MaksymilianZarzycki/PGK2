@@ -35,7 +35,7 @@ public partial class Machinegun : Node3D
 			Area3D newBullet = (Area3D)bullet.Instantiate();
 			parent.GetParent().AddChild(newBullet);
 			newBullet.GlobalPosition = GlobalPosition;
-			newBullet.Rotate(Vector3.Right,-GlobalRotation.X + (float)Mathf.DegToRad(GD.RandRange(-spread, spread)));
+			newBullet.Rotate(Vector3.Right,GlobalRotation.X + (float)Mathf.DegToRad(GD.RandRange(-spread, spread)));
 			newBullet.Rotate(Vector3.Up,GlobalRotation.Y + (float)Mathf.DegToRad(GD.RandRange(-spread, spread)));
 			newBullet.CollisionLayer = 0;
 			newBullet.CollisionMask = 0;

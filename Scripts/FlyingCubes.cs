@@ -13,6 +13,7 @@ public partial class FlyingCubes : Node3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Globals.Instance.score = 0;
 		spread = Globals.Instance.spawnArea;
 		for(int i =0; i<Globals.Instance.obstacleAmount; i++){
 			Node3D newCube = (Node3D)cube.Instantiate();
@@ -37,6 +38,7 @@ public partial class FlyingCubes : Node3D
 	}
 	
 	public void on_enemy_destroyed(){
+		Globals.Instance.score ++;
 		if(Globals.Instance.enemyRespawn){
 			Enemy newEnemy = (Enemy)enemy.Instantiate();
 			newEnemy.ProcessMode = Node.ProcessModeEnum.Disabled;

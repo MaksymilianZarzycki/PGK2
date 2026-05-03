@@ -10,14 +10,15 @@ font_size = 40
 font_size = 40
 font_color = Color(1, 0, 0.02745098, 1)
 
-[node name="Game" type="Node" unique_id=637445144 node_paths=PackedStringArray("enviroment", "pauseMenu", "gameOverMenu", "test")]
+[node name="Game" type="Node" unique_id=637445144 node_paths=PackedStringArray("enviroment", "pauseMenu", "gameOverMenu", "scoreLabel", "gameOverTimer")]
 process_mode = 3
 script = ExtResource("1_qxrlw")
 scene = ExtResource("2_qxrlw")
 enviroment = NodePath("Map")
 pauseMenu = NodePath("PauseMenu")
 gameOverMenu = NodePath("GameOverMenu")
-test = NodePath("")
+scoreLabel = NodePath("GameOverMenu/VBoxContainer/ScoreLabel")
+gameOverTimer = NodePath("GameOverTimer")
 
 [node name="Map" type="Node" parent="." unique_id=1388711613]
 process_mode = 1
@@ -26,7 +27,7 @@ process_mode = 1
 process_mode = 3
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="PauseMenu" unique_id=1492399806]
+[node name="Panel" type="Panel" parent="PauseMenu" unique_id=650305007]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -38,7 +39,6 @@ offset_right = 106.0
 offset_bottom = 71.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.48235294)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu" unique_id=1245411134]
 anchors_preset = 8
@@ -71,19 +71,20 @@ text = "Exit
 process_mode = 3
 visible = false
 
-[node name="ColorRect" type="ColorRect" parent="GameOverMenu" unique_id=554295486]
+[node name="Panel" type="Panel" parent="GameOverMenu" unique_id=1365289512]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -130.0
-offset_top = -71.0
+offset_top = -93.75
 offset_right = 130.0
-offset_bottom = 71.0
+offset_bottom = 104.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.48235294)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GameOverMenu" unique_id=1951837373]
 anchors_preset = 8
@@ -103,16 +104,32 @@ layout_mode = 2
 text = "Game Over"
 label_settings = SubResource("LabelSettings_qxrlw")
 
-[node name="Restart" type="Button" parent="GameOverMenu/VBoxContainer" unique_id=328098633]
+[node name="ScoreLabel" type="Label" parent="GameOverMenu/VBoxContainer" unique_id=835018902]
 layout_mode = 2
+text = "0
+0"
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="GameOverMenu/VBoxContainer" unique_id=328098633]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Restart"
 
 [node name="Exit" type="Button" parent="GameOverMenu/VBoxContainer" unique_id=666742617]
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Exit
 "
+
+[node name="GameOverTimer" type="Timer" parent="." unique_id=2130281539]
+wait_time = 1.5
+one_shot = true
 
 [connection signal="button_up" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_button_up"]
 [connection signal="button_up" from="PauseMenu/VBoxContainer/Exit" to="." method="_on_exit_button_up"]
 [connection signal="button_up" from="GameOverMenu/VBoxContainer/Restart" to="." method="_on_restart_button_up"]
 [connection signal="button_up" from="GameOverMenu/VBoxContainer/Exit" to="." method="_on_exit_button_up"]
+[connection signal="timeout" from="GameOverTimer" to="." method="on_game_over_timer_timeout"]

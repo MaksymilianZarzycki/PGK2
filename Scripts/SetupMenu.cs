@@ -4,17 +4,17 @@ using System;
 public partial class SetupMenu : Control
 {
 	[Export]
-	public LineEdit playerHealth;
+	public SpinBox playerHealth;
 	[Export]
-	public LineEdit enemyAmount;
+	public SpinBox enemyAmount;
 	[Export]
-	public LineEdit enemyHealth;
+	public SpinBox enemyHealth;
 	[Export]
 	public CheckButton enemyRespawn;
 	[Export]
-	public LineEdit obstacleAmount;
+	public SpinBox obstacleAmount;
 	[Export]
-	public LineEdit spawnArea;
+	public SpinBox spawnArea;
 	
 	[Export]
 	public string startScenePath;
@@ -32,12 +32,12 @@ public partial class SetupMenu : Control
 	}
 	
 	public void on_start_button_up(){
-		Globals.Instance.playerHealth = playerHealth.Text.ToInt();
-		Globals.Instance.enemyAmount = enemyAmount.Text.ToInt();
-		Globals.Instance.enemyHealth = enemyHealth.Text.ToInt();
+		Globals.Instance.playerHealth = (int)playerHealth.Value;
+		Globals.Instance.enemyAmount = (int)enemyAmount.Value;
+		Globals.Instance.enemyHealth = (int)enemyHealth.Value;
 		Globals.Instance.enemyRespawn = enemyRespawn.ToggleMode;
-		Globals.Instance.obstacleAmount = obstacleAmount.Text.ToInt();
-		Globals.Instance.spawnArea = spawnArea.Text.ToInt();
+		Globals.Instance.obstacleAmount = (int)obstacleAmount.Value;
+		Globals.Instance.spawnArea = (int)spawnArea.Value;
 		SceneManager.Instance.ChangeScene(ResourceLoader.Load<PackedScene>(startScenePath));
 	}
 	

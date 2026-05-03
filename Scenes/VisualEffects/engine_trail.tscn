@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://df25n3172rky8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flgm8"]
+resource_local_to_scene = true
 shading_mode = 0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ms00y"]
+resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_flgm8")
 radius = 0.1
 height = 0.2

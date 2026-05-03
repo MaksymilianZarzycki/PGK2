@@ -5,6 +5,8 @@ public partial class Globals : Node
 {
 	public static Globals Instance { get; private set; }
 	
+	public int score = 0;
+	
 	public int playerHealth;
 	public int enemyAmount;
 	public int enemyHealth;

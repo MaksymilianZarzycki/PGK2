@@ -35,16 +35,29 @@ material = SubResource("StandardMaterial3D_f1ek2")
 radius = 0.05
 height = 0.1
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1dp5w"]
+resource_local_to_scene = true
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_8uf12"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_1dp5w")
+radius = 0.1
+height = 0.2
+radial_segments = 6
+rings = 3
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_1dp5w"]
 radius = 0.5877877
 
-[node name="Enemy" type="CharacterBody3D" unique_id=2122765264 node_paths=PackedStringArray("plane", "planeDir", "machinegun")]
+[node name="Enemy" type="CharacterBody3D" unique_id=2122765264 node_paths=PackedStringArray("plane", "planeDir", "machinegun", "engineTrail")]
 motion_mode = 1
 script = ExtResource("1_afpow")
 plane = NodePath("Plane")
 planeDir = NodePath("Plane/planeDir")
 machinegun = NodePath("Plane/Machinegun")
 exposlion = ExtResource("2_1dp5w")
+engineTrail = NodePath("Plane/Thruster/EngineTrail")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1269220554]
 shape = SubResource("SphereShape3D_287tu")
@@ -61,7 +74,7 @@ collision_layer = 0
 collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/Machinegun/AttackTrigger" unique_id=85170329]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -25.27085)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -23.27085)
 shape = SubResource("CapsuleShape3D_0830c")
 
 [node name="f-16" parent="Plane" unique_id=1785029857 instance=ExtResource("5_1dp5w")]
@@ -71,7 +84,7 @@ transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="Thruster" type="MeshInstance3D" parent="Plane" unique_id=1049505878]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0048768222, 0.69226897)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.0048768222, 0.77731514)
 mesh = SubResource("SphereMesh_1dp5w")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plane/Thruster" unique_id=690929186]
@@ -83,6 +96,7 @@ light_color = Color(0.97749585, 0.55542314, 0.6032885, 1)
 omni_range = 10.0
 
 [node name="EngineTrail" parent="Plane/Thruster" unique_id=584689677 instance=ExtResource("5_ghaa6")]
+mesh = SubResource("SphereMesh_8uf12")
 
 [node name="HurtBox" type="Area3D" parent="." unique_id=1138120423]
 collision_layer = 4

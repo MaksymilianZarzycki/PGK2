@@ -10,12 +10,15 @@ public partial class Enemy : CharacterBody3D
 	[Export]
 	public Node3D planeDir;
 	[Export]
-	public Player target;
+	public CharacterBody3D target;
 	[Export]
 	public Machinegun machinegun;
 	[Export]
 	public PackedScene exposlion;
+	[Export]
+	public CpuParticles3D engineTrail;
 	
+	public int maxHp; 
 	public int hp;    
 	public bool shoot = false;       
 	
@@ -23,23 +26,31 @@ public partial class Enemy : CharacterBody3D
 	public const float acceleration = 0.15f;
 	public const float rotationSpeed = 0.03f;
 	public float angleX = 0;
+	
+	StandardMaterial3D white;
+	StandardMaterial3D grey;
 
 	public override void _Ready(){
-		hp = Globals.Instance.enemyHealth;
+		maxHp = hp = Globals.Instance.enemyHealth;
+		white = new StandardMaterial3D() { AlbedoColor = new Color(1, 1, 1), ShadingMode = 0 };
+		grey = new StandardMaterial3D() { AlbedoColor = new Color(0.5f, 0.5f, 0.5f), ShadingMode = 0 };
+		engineTrail.Mesh.SurfaceSetMaterial(0, white);
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
 		if (target.NativeInstance == IntPtr.Zero){
-			QueueFree();
-			return;
+			target = this;
 		}
 		Vector3 velocity = Velocity;
 		
-		Vector3 lookDir = Vector3.Forward.Rotated(Vector3.Right,target.plane.GlobalRotation.X);
-		lookDir = lookDir.Rotated(Vector3.Up,target.plane.GlobalRotation.Y);
-		lookDir = target.GlobalPosition+(lookDir+target.Velocity/2);
+		//Vector3 lookDir = Vector3.Forward.Rotated(Vector3.Right,target.plane.GlobalRotation.X);
+		//lookDir = lookDir.Rotated(Vector3.Up,target.plane.GlobalRotation.Y);
+		Vector3 lookDir = target.GlobalPosition+target.Velocity/2;
 		lookDir = GlobalPosition.DirectionTo(lookDir);
+		if(lookDir == Vector3.Zero){
+			lookDir = Vector3.Forward;
+		}
 		Basis rotatedBasis = Basis.LookingAt(lookDir).Orthonormalized();
 		
 		Basis = Basis.Slerp(rotatedBasis, rotationSpeed*(movementSpeed/(velocity.Length()+movementSpeed))).Orthonormalized();
@@ -81,6 +92,15 @@ public partial class Enemy : CharacterBody3D
 	
 	public void on_hurt_box_hit(int damage){
 		hp -= damage;
+		
+		if(hp>maxHp/2){
+			engineTrail.Mesh.SurfaceSetMaterial(0, white);
+		}
+		else
+		{
+			engineTrail.Mesh.SurfaceSetMaterial(0, grey);
+		}
+		
 		if(hp<=0){
 			Node3D newExposlion = (Node3D)exposlion.Instantiate();
 			GetParent().AddChild(newExposlion);

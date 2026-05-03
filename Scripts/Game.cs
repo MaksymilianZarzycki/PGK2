@@ -11,6 +11,10 @@ public partial class Game : Node
 	public CanvasLayer pauseMenu;
 	[Export]
 	public CanvasLayer gameOverMenu;
+	[Export]
+	public Label scoreLabel;
+	[Export]
+	public Timer gameOverTimer;
 	
 	//[Export]
 	public PackedScene mainMenu;
@@ -85,6 +89,11 @@ public partial class Game : Node
 	}
 	
 	public void on_player_destroyed(){
+		gameOverTimer.Start();
+	}
+	
+	public void on_game_over_timer_timeout(){
+		scoreLabel.Text = "Score\n" + Globals.Instance.score.ToString();
 		paused = true;
 		GetTree().Paused = true;
 		gameOverMenu.Visible = true;

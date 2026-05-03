@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjq7qenull1yx"]
 
 [ext_resource type="Script" uid="uid://c5qamot532h4v" path="res://Scripts/Player.cs" id="1_v0iea"]
+[ext_resource type="PackedScene" uid="uid://cffhorxd2twyq" path="res://Scenes/VisualEffects/exposion.tscn" id="2_3smsa"]
 [ext_resource type="PackedScene" uid="uid://dqyv12gd5mf7p" path="res://Scenes/hud_2d.tscn" id="2_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://bt33ldxo1gjbo" path="res://Scenes/machinegun.tscn" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="3_6t5aa"]
@@ -13,7 +14,7 @@ radius = 0.4
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3smsa"]
 transparency = 1
 shading_mode = 0
-albedo_color = Color(0.81960785, 0.53333336, 1, 0.4509804)
+albedo_color = Color(0.43655166, 0.6901337, 1, 0.4509804)
 
 [sub_resource type="SphereMesh" id="SphereMesh_8erm5"]
 material = SubResource("StandardMaterial3D_3smsa")
@@ -30,6 +31,18 @@ stencil_flags = 2
 material = SubResource("StandardMaterial3D_8erm5")
 radius = 0.05
 height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f1ek2"]
+resource_local_to_scene = true
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_gymyn"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_f1ek2")
+radius = 0.1
+height = 0.2
+radial_segments = 6
+rings = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3wgy"]
 shading_mode = 0
@@ -67,7 +80,7 @@ size = Vector3(0.5, 0.1, 0.1)
 [sub_resource type="SphereShape3D" id="SphereShape3D_vgqql"]
 radius = 0.5877877
 
-[node name="Player" type="CharacterBody3D" unique_id=1617189981 node_paths=PackedStringArray("plane", "planeAxisZ", "gun", "planeDir", "invincibilityTimer", "cameraAxisY", "cameraAxisX", "camera", "cameraResetTimer", "hud3D", "horizon", "pointer", "target")]
+[node name="Player" type="CharacterBody3D" unique_id=1617189981 node_paths=PackedStringArray("plane", "planeAxisZ", "gun", "planeDir", "invincibilityTimer", "engineTrail", "cameraAxisY", "cameraAxisX", "camera", "cameraResetTimer", "hud3D", "horizon", "pointer", "target")]
 motion_mode = 1
 script = ExtResource("1_v0iea")
 plane = NodePath("Plane")
@@ -75,6 +88,8 @@ planeAxisZ = NodePath("Plane/PlaneAxisZ")
 gun = NodePath("Plane/PlaneAxisZ/Machinegun")
 planeDir = NodePath("Plane/PlaneAxisZ/PlaneDir")
 invincibilityTimer = NodePath("InvincibilityTimer")
+exposlion = ExtResource("2_3smsa")
+engineTrail = NodePath("Plane/PlaneAxisZ/Thruster/EngineTrail")
 cameraAxisY = NodePath("CameraAxisY")
 cameraAxisX = NodePath("CameraAxisY/CameraAxisX")
 camera = NodePath("CameraAxisY/CameraAxisX/Camera3D")
@@ -103,7 +118,7 @@ transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="Thruster" type="MeshInstance3D" parent="Plane/PlaneAxisZ" unique_id=1108513179]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.002737701, 0.70103645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0.002737701, 0.78635246)
 mesh = SubResource("SphereMesh_8erm5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plane/PlaneAxisZ/Thruster" unique_id=1250264335]
@@ -111,21 +126,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.03806132)
 mesh = SubResource("SphereMesh_tx1dd")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Plane/PlaneAxisZ/Thruster/MeshInstance3D" unique_id=1647734478]
-light_color = Color(0.7045118, 0.66720486, 0.8646613, 1)
+light_color = Color(0.36926526, 0.64662254, 0.9985828, 1)
 omni_range = 10.0
 
 [node name="EngineTrail" parent="Plane/PlaneAxisZ/Thruster" unique_id=973075200 instance=ExtResource("5_3smsa")]
+mesh = SubResource("SphereMesh_gymyn")
 
 [node name="CameraAxisY" type="Node3D" parent="." unique_id=1388215220]
 
 [node name="CameraAxisX" type="Node3D" parent="CameraAxisY" unique_id=969471694]
 
+[node name="Hud2D" parent="CameraAxisY/CameraAxisX" unique_id=128234520 node_paths=PackedStringArray("player") instance=ExtResource("2_cvnsp")]
+player = NodePath("../../..")
+
 [node name="Camera3D" type="Camera3D" parent="CameraAxisY/CameraAxisX" unique_id=1556007435]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5738077, 1.6832607)
 current = true
-
-[node name="Hud2D" parent="CameraAxisY/CameraAxisX/Camera3D" unique_id=128234520 node_paths=PackedStringArray("player") instance=ExtResource("2_cvnsp")]
-player = NodePath("../../../..")
 
 [node name="CameraResetTimer" type="Timer" parent="CameraAxisY/CameraAxisX/Camera3D" unique_id=1809061929]
 one_shot = true

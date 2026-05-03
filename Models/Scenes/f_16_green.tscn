@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dtyjkby1cyw05" path="res://Models/f-16.gltf" id="1_5j0px"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5evn"]
-albedo_color = Color(0, 0.43351528, 0.31434938, 1)
+albedo_color = Color(0, 0.50112474, 0.39889407, 1)
 
 [node name="f-16" unique_id=2026954534 instance=ExtResource("1_5j0px")]
 

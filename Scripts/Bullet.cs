@@ -26,14 +26,14 @@ public partial class Bullet : HitBox
 	
 	public void on_body_collision(Node3D body){
 		Node3D newSpark = (Node3D)spark.Instantiate();
-		GetParent().AddChild(newSpark);
+		body.AddChild(newSpark);
 		newSpark.GlobalPosition = GlobalPosition;
 		QueueFree();
 	}
 	
 	public void on_area_collision(Area3D area){
 		Node3D newSpark = (Node3D)spark.Instantiate();
-		GetParent().AddChild(newSpark);
+		area.AddChild(newSpark);
 		newSpark.GlobalPosition = GlobalPosition;
 		QueueFree();
 	}

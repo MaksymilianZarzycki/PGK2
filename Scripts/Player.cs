@@ -17,6 +17,10 @@ public partial class Player : CharacterBody3D
 	public Node3D planeDir;
 	[Export]
 	public Timer invincibilityTimer;
+	[Export]
+	public PackedScene exposlion;
+	[Export]
+	public CpuParticles3D engineTrail;
 	[ExportGroup("Camera")]
 	[Export]
 	public Node3D cameraAxisY;
@@ -41,9 +45,9 @@ public partial class Player : CharacterBody3D
 	//[Export]
 	//public PackedScene line;
 	
-	public const float movementSpeed = 20f;
-	public const float acceleration = 0.15f;
-	public const float rotationSpeed = 0.03f;
+	public float movementSpeed = 20f;
+	public float acceleration = 0.15f;
+	public float rotationSpeed = 0.03f;
 	/*public const float yawSpeed = 0.01f;
 	public const float pitchSpeed = 0.02f;
 	public const float rollSpeed = 0.05f;
@@ -57,15 +61,23 @@ public partial class Player : CharacterBody3D
 	public float cameraSensitivity = 0.2f;
 	public bool cameraManual = true;
 	
+	public int maxHp;
 	public int hp;
 	public bool invincible = true;
 	public float angleX = 0;
 	
+	StandardMaterial3D white;
+	StandardMaterial3D grey;
+	
 	public override void _Ready(){
-		hp = Globals.Instance.playerHealth;
+		hp = maxHp = Globals.Instance.playerHealth;
 		if(mapRoot.GetParent().GetParent() is Game){
 			mapRoot.GetParent().GetParent().Call("SetPlayer",this);
 		}
+		
+		white = new StandardMaterial3D() { AlbedoColor = new Color(1, 1, 1), ShadingMode = 0 };
+		grey = new StandardMaterial3D() { AlbedoColor = new Color(0.5f, 0.5f, 0.5f), ShadingMode = 0 };
+		engineTrail.Mesh.SurfaceSetMaterial(0, white);
 	}
 	
 	public override void _PhysicsProcess(double delta)
@@ -180,7 +192,21 @@ public partial class Player : CharacterBody3D
 		if(!invincible){
 			hp -= damage;
 		}
+		
+		if(hp>maxHp/2){
+			engineTrail.Mesh.SurfaceSetMaterial(0, white);
+		}
+		else
+		{
+			engineTrail.Mesh.SurfaceSetMaterial(0, grey);
+		}
+		
 		if(hp<=0){
+			Node3D newExposlion = (Node3D)exposlion.Instantiate();
+			GetParent().AddChild(newExposlion);
+			newExposlion.LookAt(Velocity);
+			newExposlion.GlobalPosition = GlobalPosition;
+			
 			var pos = camera.GlobalTransform;
 			cameraAxisX.RemoveChild(camera);
 			GetParent().AddChild(camera);

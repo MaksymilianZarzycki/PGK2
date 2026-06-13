@@ -16,7 +16,6 @@ public partial class HurtBox : Area3D
 	}
 	
 	public void TakeDamage(int damage){
-		//GD.Print("Hit: " + damage);
 		EmitSignal(SignalName.Hit, damage);
 	}
 }

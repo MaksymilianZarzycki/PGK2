@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dym68yy8jh1sr" path="res://Scripts/Enemy.cs" id="1_afpow"]
 [ext_resource type="PackedScene" uid="uid://cffhorxd2twyq" path="res://Scenes/VisualEffects/exposion.tscn" id="2_1dp5w"]
 [ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="2_afpow"]
-[ext_resource type="PackedScene" uid="uid://bj6fesquksq0x" path="res://Models/Scenes/f_16_red.tscn" id="5_1dp5w"]
+[ext_resource type="PackedScene" uid="uid://b82sfka3hpng2" path="res://Assets/Models/Variants/f_16_red.tscn" id="4_ghaa6"]
 [ext_resource type="PackedScene" uid="uid://df25n3172rky8" path="res://Scenes/VisualEffects/engine_trail.tscn" id="5_ghaa6"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_287tu"]
@@ -77,7 +77,7 @@ collision_mask = 3
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -23.27085)
 shape = SubResource("CapsuleShape3D_0830c")
 
-[node name="f-16" parent="Plane" unique_id=1785029857 instance=ExtResource("5_1dp5w")]
+[node name="f-16" parent="Plane" unique_id=878642893 instance=ExtResource("4_ghaa6")]
 transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
 
 [node name="planeDir" type="Node3D" parent="Plane" unique_id=185006570]

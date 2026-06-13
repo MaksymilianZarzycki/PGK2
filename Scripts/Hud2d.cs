@@ -27,8 +27,6 @@ public partial class Hud2d : CanvasLayer
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		//velocityLabel.Text = "Velocity: " + (player.Velocity.Length()*20).ToString() + "\nAltitude: " + (player.Position.Y*20).ToString() + "\nHp: " + player.hp.ToString();
-		//velocityLabel.Text = player.maxHp.ToString() + " " + ((player.hp/player.maxHp)*100).ToString();
 		hpBar.Value = Mathf.Lerp(hpBar.Value,((float)player.hp/(float)player.maxHp)*100,0.1f);
 		speedBar.Value = (player.Velocity.Length()/player.movementSpeed)*100;
 		hpLabel.Text = player.hp.ToString();

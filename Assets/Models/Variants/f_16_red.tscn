@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://b82sfka3hpng2"]
+
+[ext_resource type="PackedScene" uid="uid://dtyjkby1cyw05" path="res://Assets/Models/f-16.gltf" id="1_ogoh8"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_354nd"]
+transparency = 1
+blend_mode = 3
+albedo_color = Color(0.60895526, 0, 0.1668751, 1)
+
+[node name="f-16" unique_id=878642893 instance=ExtResource("1_ogoh8")]
+
+[node name="f-16_meged" parent="." index="0" unique_id=196724362]
+material_overlay = SubResource("StandardMaterial3D_354nd")

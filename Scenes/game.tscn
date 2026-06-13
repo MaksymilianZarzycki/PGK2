@@ -10,7 +10,7 @@ font_size = 40
 font_size = 40
 font_color = Color(1, 0, 0.02745098, 1)
 
-[node name="Game" type="Node" unique_id=637445144 node_paths=PackedStringArray("enviroment", "pauseMenu", "gameOverMenu", "scoreLabel", "gameOverTimer")]
+[node name="Game" type="Node" unique_id=637445144 node_paths=PackedStringArray("enviroment", "pauseMenu", "gameOverMenu", "scoreLabel", "gameOverTimer", "mouseSlider")]
 process_mode = 3
 script = ExtResource("1_qxrlw")
 scene = ExtResource("2_qxrlw")
@@ -19,6 +19,7 @@ pauseMenu = NodePath("PauseMenu")
 gameOverMenu = NodePath("GameOverMenu")
 scoreLabel = NodePath("GameOverMenu/VBoxContainer/ScoreLabel")
 gameOverTimer = NodePath("GameOverTimer")
+mouseSlider = NodePath("PauseMenu/VBoxContainer/HBoxContainer/HSlider")
 
 [node name="Map" type="Node" parent="." unique_id=1388711613]
 process_mode = 1
@@ -34,9 +35,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -106.0
-offset_top = -71.0
+offset_top = -81.0
 offset_right = 106.0
-offset_bottom = 71.0
+offset_bottom = 96.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -66,6 +67,23 @@ text = "Resume"
 layout_mode = 2
 text = "Exit
 "
+
+[node name="HBoxContainer" type="VBoxContainer" parent="PauseMenu/VBoxContainer" unique_id=325933249]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PauseMenu/VBoxContainer/HBoxContainer" unique_id=901885527]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="PauseMenu/VBoxContainer/HBoxContainer" unique_id=106063617]
+layout_mode = 2
+min_value = 0.1
+max_value = 2.0
+step = 0.1
+value = 1.1
+tick_count = 9
+ticks_on_borders = true
+ticks_position = 3
 
 [node name="GameOverMenu" type="CanvasLayer" parent="." unique_id=330129047]
 process_mode = 3
@@ -130,6 +148,7 @@ one_shot = true
 
 [connection signal="button_up" from="PauseMenu/VBoxContainer/Resume" to="." method="_on_resume_button_up"]
 [connection signal="button_up" from="PauseMenu/VBoxContainer/Exit" to="." method="_on_exit_button_up"]
+[connection signal="drag_ended" from="PauseMenu/VBoxContainer/HBoxContainer/HSlider" to="." method="on_drag_ended"]
 [connection signal="button_up" from="GameOverMenu/VBoxContainer/Restart" to="." method="_on_restart_button_up"]
 [connection signal="button_up" from="GameOverMenu/VBoxContainer/Exit" to="." method="_on_exit_button_up"]
 [connection signal="timeout" from="GameOverTimer" to="." method="on_game_over_timer_timeout"]

@@ -15,6 +15,8 @@ public partial class Game : Node
 	public Label scoreLabel;
 	[Export]
 	public Timer gameOverTimer;
+	[Export]
+	public HSlider mouseSlider;
 	
 	//[Export]
 	public PackedScene mainMenu;
@@ -40,12 +42,6 @@ public partial class Game : Node
 		{
 			togglePause();
 		}
-		
-		/*if(paused==false && GetTree().Paused == true){
-			GetTree().Paused = false;
-			pauseMenu.Visible = false;
-			gameOverMenu.Visible = false;
-		}*/
 	}
 	
 	public void togglePause(){
@@ -98,5 +94,9 @@ public partial class Game : Node
 		GetTree().Paused = true;
 		gameOverMenu.Visible = true;
 		Input.MouseMode = Input.MouseModeEnum.Visible;
+	}
+	
+	public void on_drag_ended(bool valueChanged){
+		Globals.Instance.mouseSensitivity = (float)mouseSlider.Value;
 	}
 }

@@ -42,17 +42,10 @@ public partial class Player : CharacterBody3D
 	[ExportGroup("Game")]
 	[Export]
 	public Node mapRoot;
-	//[Export]
-	//public PackedScene line;
 	
 	public float movementSpeed = 20f;
 	public float acceleration = 0.15f;
 	public float rotationSpeed = 0.03f;
-	/*public const float yawSpeed = 0.01f;
-	public const float pitchSpeed = 0.02f;
-	public const float rollSpeed = 0.05f;
-	public const float passiveRotation = 0.01f;
-	public float rollAngle = 0;*/
 	
 	public float pitchInputAxis;
 	public float rollInputAxis;
@@ -89,33 +82,10 @@ public partial class Player : CharacterBody3D
 		rollInputAxis = Input.GetAxis("RollLeft", "RollRight");
 		yawInputAxis = Input.GetAxis("YawRight", "YawLeft");
 		
-		/*
-		//ROTATION
-		plane.RotateObjectLocal(Vector3.Up, yawInputAxis*yawSpeed);
-		plane.RotateObjectLocal(Vector3.Forward, rollInputAxis*rollSpeed);
-		plane.RotateObjectLocal(Vector3.Right, pitchInputAxis*pitchSpeed);
-		
-		
-		float rotAngle = plane.Rotation.Z;
-		float downRot = -passiveRotation*Mathf.Cos(rotAngle);
-		plane.RotateObjectLocal(Vector3.Right, passiveRotation);
-		plane.Rotate(Vector3.Right.Rotated(Vector3.Up,plane.Rotation.Y), downRot);
-		*/
-		
 		//MOVEMENT
 		Vector3 direction = Vector3.Forward.Rotated(Vector3.Right,plane.GlobalRotation.X);
 		direction = direction.Rotated(Vector3.Up,plane.GlobalRotation.Y);
 		velocity = velocity.MoveToward(direction * movementSpeed,acceleration);
-		/*if(velocity.Length()<4){
-			velocity = velocity.MoveToward(Vector3.Down * movementSpeed, 2f);
-		}*/
-		
-		//Experimental
-		//Vector3 lookDir = Vector3.Forward.Rotated(Vector3.Right,plane.GlobalRotation.X);
-		//lookDir = lookDir.Rotated(Vector3.Up,plane.GlobalRotation.Y);
-		//Vector3 lookDir = target.GlobalPosition;
-		//lookDir = plane.GlobalPosition.DirectionTo(lookDir);
-		//Basis rotatedBasis = Basis.LookingAt(lookDir).Orthonormalized();
 		
 		plane.Rotation = new Vector3(plane.Rotation.X, plane.Rotation.Y, 0);
 		Vector3 turnDir3;
@@ -125,7 +95,7 @@ public partial class Player : CharacterBody3D
 			plane.RotateObjectLocal(Vector3.Right, Mathf.LerpAngle(0, Mathf.AngleDifference(plane.Rotation.X,cameraAxisX.Rotation.X), rotationSpeed*(movementSpeed/(velocity.Length()+movementSpeed))));
 		}
 		else{
-			turnDir3 = Vector3.Up;//GlobalPosition.DirectionTo(planeDir.GlobalPosition);
+			turnDir3 = Vector3.Up;
 		}
 		turnDir3 = turnDir3.Rotated(Vector3.Up, -plane.Rotation.Y);
 		Vector2 turnDir2 = new Vector2(turnDir3.X, -turnDir3.Y).Normalized();
@@ -149,7 +119,6 @@ public partial class Player : CharacterBody3D
 		
 		//HUD
 		pointer.Rotation = new Vector3(plane.Rotation.X,plane.Rotation.Y,planeAxisZ.Rotation.Z);
-		//hud3D.GlobalPosition = new Vector3(hud3D.GlobalPosition.X,camera.GlobalPosition.Y,hud3D.GlobalPosition.Z);
 		horizon.Rotation = new Vector3(0,plane.Rotation.Y,0);
 		
 		Velocity = velocity;
@@ -173,15 +142,14 @@ public partial class Player : CharacterBody3D
 	
 	public override void _Input(InputEvent @event){
 		if(@event is InputEventMouseMotion motion){
-			cameraAxisY.RotateY(Mathf.DegToRad(-motion.Relative.X * cameraSensitivity));			
-			cameraAxisX.RotateX(Mathf.DegToRad(-motion.Relative.Y * cameraSensitivity));
+			cameraAxisY.RotateY(Mathf.DegToRad(-motion.Relative.X * cameraSensitivity * Globals.Instance.mouseSensitivity));			
+			cameraAxisX.RotateX(Mathf.DegToRad(-motion.Relative.Y * cameraSensitivity * Globals.Instance.mouseSensitivity));
 			cameraAxisX.Rotation = new Vector3(Mathf.Clamp(cameraAxisX.Rotation.X,Mathf.DegToRad(-85),Mathf.DegToRad(85)), 0, 0);
-			//cameraResetTimer.Start();
 		}
 	}
 
 	public void _on_camera_reset_timer_timeout(){
-		//cameraManual = false;
+		
 	}
 	
 	public void _on_invincibility_timeout(){

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dqyv12gd5mf7p" path="res://Scenes/hud_2d.tscn" id="2_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://bt33ldxo1gjbo" path="res://Scenes/machinegun.tscn" id="2_vgqql"]
 [ext_resource type="Script" uid="uid://dcum4o6d6igcx" path="res://Scripts/HurtBox.cs" id="3_6t5aa"]
-[ext_resource type="PackedScene" uid="uid://bcskchx5oqtc8" path="res://Models/Scenes/f_16_green.tscn" id="4_3smsa"]
+[ext_resource type="PackedScene" uid="uid://bcskchx5oqtc8" path="res://Assets/Models/Variants/f_16_green.tscn" id="4_3smsa"]
 [ext_resource type="PackedScene" uid="uid://df25n3172rky8" path="res://Scenes/VisualEffects/engine_trail.tscn" id="5_3smsa"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cvnsp"]
@@ -111,7 +111,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04287582, -0.670454)
 parent = NodePath("../../..")
 targetLayer = 3
 
-[node name="f-16" parent="Plane/PlaneAxisZ" unique_id=1785029857 instance=ExtResource("4_3smsa")]
+[node name="f-16_green" parent="Plane/PlaneAxisZ" unique_id=1377136758 instance=ExtResource("4_3smsa")]
 transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
 
 [node name="PlaneDir" type="Node3D" parent="Plane/PlaneAxisZ" unique_id=609072319]

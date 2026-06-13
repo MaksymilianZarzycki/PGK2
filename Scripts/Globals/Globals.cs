@@ -5,7 +5,7 @@ public partial class Globals : Node
 {
 	public static Globals Instance { get; private set; }
 	
-	public int score = 0;
+	public float mouseSensitivity = 1;
 	
 	public int playerHealth;
 	public int enemyAmount;
@@ -14,6 +14,7 @@ public partial class Globals : Node
 	public int obstacleAmount;
 	public int spawnArea;
 	
+	public int score = 0;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()

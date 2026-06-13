@@ -44,8 +44,6 @@ public partial class Enemy : CharacterBody3D
 		}
 		Vector3 velocity = Velocity;
 		
-		//Vector3 lookDir = Vector3.Forward.Rotated(Vector3.Right,target.plane.GlobalRotation.X);
-		//lookDir = lookDir.Rotated(Vector3.Up,target.plane.GlobalRotation.Y);
 		Vector3 lookDir = target.GlobalPosition+target.Velocity/2;
 		lookDir = GlobalPosition.DirectionTo(lookDir);
 		if(lookDir == Vector3.Zero){
@@ -70,13 +68,6 @@ public partial class Enemy : CharacterBody3D
 		else{
 			plane.RotateObjectLocal(Vector3.Forward,Mathf.LerpAngle(0,Mathf.AngleDifference(-plane.Rotation.Z,0),rotationSpeed/4));
 		}
-		
-		/*if(Mathf.DegToRad(10)<velocity.Normalized().AngleTo(lookDir))
-			angleX = Mathf.LerpAngle(angleX,Vector3.Up.AngleTo(velocity.DirectionTo(lookDir)), 0.05f);
-		else{
-			angleX = Mathf.LerpAngle(angleX, 0, 0.01f);
-		}
-		plane.Rotation = new Vector3(plane.Rotation.X, plane.Rotation.Y, angleX);*/
 		
 		Vector3 direction = Vector3.Forward.Rotated(Vector3.Right,plane.GlobalRotation.X);
 		direction = direction.Rotated(Vector3.Up,plane.GlobalRotation.Y);
